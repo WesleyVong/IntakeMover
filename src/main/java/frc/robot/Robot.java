@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.commands.Drive;
 import frc.robot.commands.IntakeAuto;
 import frc.robot.commands.MoveMotor;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -26,6 +28,7 @@ import com.kauailabs.navx.frc.AHRS;
  */
 public class Robot extends TimedRobot {
   public static Intake intake = new Intake();
+  public static DriveTrain driveTrain = new DriveTrain();
   public static MoveMotor move;
   public static IntakeAuto auto;
   public static OI m_oi;
@@ -41,7 +44,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     m_oi = new OI();
     auton = new IntakeAuto();
-    teleOp = new MoveMotor();
+    teleOp = new Drive();
 
     System.out.print("Robot Init");
   }

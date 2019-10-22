@@ -11,6 +11,7 @@ import java.sql.Time;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.WaitCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -41,18 +42,45 @@ public class MoveMotor extends Command {
     boolean ButtonB = Robot.m_oi.getControllerButton(RobotMap.Button_B);
     boolean RT = Robot.m_oi.getControllerButton(RobotMap.RT);
     
+ 
+    // Sets the speed scale depending on button press
     if (ButtonA){
       scale = 0.1;
     }
     else {
       scale = 0.25;
     }
+    // Makes sure gyro values are print once
+    // if (ButtonB && !gyroOut){
+    //   //gyroOut = true;
+    //   System.out.println(Robot.intake.getGyro());
+    //      // Sets the SmartDashboard Values
+    //   double[] gyroValues = Robot.intake.getGyroValues();
+    //   SmartDashboard.putNumber("Gyro Pitch", gyroValues[0]);
+    //   SmartDashboard.putNumber("Gyro Roll", gyroValues[1]);
+    //   SmartDashboard.putNumber("Gyro Yaw", gyroValues[2]);
+
+    // } else if (!ButtonB) {
+    //   gyroOut = false;
+    // }
+
     if (ButtonB && !gyroOut){
       gyroOut = true;
-      System.out.println(Robot.intake.getGyro());
-    } else if (!ButtonB) {
+      
+
+    } else if (ButtonB && gyroOut) {
       gyroOut = false;
     }
+    if (gyroOut){
+      System.out.println(Robot.intake.getGyro());
+         // Sets the SmartDashboard Values
+      double[] gyroValues = Robot.intake.getGyroValues();
+      SmartDashboard.putNumber("Gyro Pitch", gyroValues[0]);
+      SmartDashboard.putNumber("Gyro Roll", gyroValues[1]);
+      SmartDashboard.putNumber("Gyro Yaw", gyroValues[2]);
+    }
+
+    // Resets Gyro
     if (RT) {
       Robot.intake.resetGyro();
     }

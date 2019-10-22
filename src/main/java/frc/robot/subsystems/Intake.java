@@ -47,6 +47,19 @@ public class Intake extends Subsystem {
     double roll = ahrs.getRoll() - gyroBaseRoll;
     double yaw = ahrs.getYaw();
     return String.format("Pitch: %f, Roll: %f, Yaw: %f%n",pitch,roll,yaw);
+
+  }
+
+  public double[] getGyroValues(){
+    double[] values = new double[3];
+    double pitch = ahrs.getPitch() - gyroBasePitch;
+    double roll = ahrs.getRoll() - gyroBaseRoll;
+    double yaw = ahrs.getYaw();
+    values[0] = pitch;
+    values[1] = roll;
+    values[2] = yaw;
+    return values;
+    
   }
 
   public void resetGyro(){
