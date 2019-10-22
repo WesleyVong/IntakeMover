@@ -32,6 +32,19 @@ public class Drive extends Command {
   protected void execute() {
     double leftStickY = Robot.m_oi.getControllerRawAxis(RobotMap.Left_Stick_Y);
     double rightStickY = Robot.m_oi.getControllerRawAxis(RobotMap.Right_Stick_Y);
+    boolean ButtonA = Robot.m_oi.getControllerButton(RobotMap.Button_A);
+    boolean ButtonB = Robot.m_oi.getControllerButton(RobotMap.Button_B);
+
+    if (ButtonA){
+      Robot.intake.setIntake(0.25);
+    }
+    else if (ButtonB){
+      Robot.intake.setIntake(-0.25);
+    }
+    else {
+      Robot.intake.setIntake(0);
+    }
+
     Robot.driveTrain.driveLeft(leftStickY * scale);
     Robot.driveTrain.driveLeft(rightStickY * scale);
   }

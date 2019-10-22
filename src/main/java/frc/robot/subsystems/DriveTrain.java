@@ -9,8 +9,9 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.Drive;
 
@@ -20,13 +21,15 @@ import frc.robot.commands.Drive;
 public class DriveTrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private TalonSRX LFMotor = new TalonSRX(RobotMap.motorLF);
-  private TalonSRX LMMotor = new TalonSRX(RobotMap.motorLM);
-  private TalonSRX LBMotor = new TalonSRX(RobotMap.motorLB);
+  VictorSPX LFMotor = new VictorSPX(RobotMap.motorLF);
+  TalonSRX LMaster = new TalonSRX(RobotMap.motorLMaster);
+  VictorSPX LBMotor = new VictorSPX(RobotMap.motorLB);
 
-  private TalonSRX RFMotor = new TalonSRX(RobotMap.motorRF);
-  private TalonSRX RMMotor = new TalonSRX(RobotMap.motorRM);
-  private TalonSRX RBMotor = new TalonSRX(RobotMap.motorRB);
+  VictorSPX RFMotor = new VictorSPX(RobotMap.motorRF);
+  TalonSRX RMaster = new TalonSRX(RobotMap.motorRMaster);
+  VictorSPX RBMotor = new VictorSPX(RobotMap.motorRB);
+
+  RFMotor.setInverted(true);
 
   @Override
   public void initDefaultCommand() {
@@ -35,13 +38,13 @@ public class DriveTrain extends Subsystem {
 
   public void driveLeft(double power){
     LFMotor.set(ControlMode.PercentOutput,power);
-    LMMotor.set(ControlMode.PercentOutput,power);
+    LMaster.set(ControlMode.PercentOutput,power);
     LBMotor.set(ControlMode.PercentOutput,power);
   }
 
   public void driveRight(double power){
     RFMotor.set(ControlMode.PercentOutput,power);
-    RMMotor.set(ControlMode.PercentOutput,power);
+    RMaster.set(ControlMode.PercentOutput,power);
     RBMotor.set(ControlMode.PercentOutput,power);
   }
 
