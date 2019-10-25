@@ -29,28 +29,36 @@ public class DriveTrain extends Subsystem {
   TalonSRX RMaster = new TalonSRX(RobotMap.motorRMaster);
   VictorSPX RBMotor = new VictorSPX(RobotMap.motorRB);
 
-  RFMotor.setInverted(true);
+  public DriveTrain(){
+    RFMotor.setInverted(true);
+    RMaster.setInverted(true);
+    RBMotor.setInverted(true);
 
+    LFMotor.follow(LMaster);
+    LBMotor.follow(LMaster);
+
+    RFMotor.follow(RMaster);
+    RBMotor.follow(RMaster);
+  }
+  
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new Drive());
   }
 
   public void driveLeft(double power){
-    LFMotor.set(ControlMode.PercentOutput,power);
-    LMaster.set(ControlMode.PercentOutput,power);
-    LBMotor.set(ControlMode.PercentOutput,power);
+    // Robot is inverted so this is driving the right wheel
+    LMaster.set(ControlMode.PercentOutput,-power);
   }
 
   public void driveRight(double power){
-    RFMotor.set(ControlMode.PercentOutput,power);
-    RMaster.set(ControlMode.PercentOutput,power);
-    RBMotor.set(ControlMode.PercentOutput,power);
+    // Robot is inverted so this is driving the left wheel
+    RMaster.set(ControlMode.PercentOutput,-power);
   }
 
-  public void drive(double power){
-    driveLeft(power);
-    driveRight(power);
+  public void arcade(double XInput, double YInput){
+    driveLeft(YInput - XInput);
+    driveRight(YInput + XInput);
   }
 
   public void turn(double power){

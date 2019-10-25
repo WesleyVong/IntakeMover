@@ -12,7 +12,11 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class Drive extends Command {
-  double scale = 0.5;
+  double leftInput = 0.0;
+  double rightInput = 0.0;
+  boolean isArcade = false;
+  boolean modeChange = false;
+
   public Drive() {
 
     
@@ -30,11 +34,19 @@ public class Drive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    double leftStickX = Robot.m_oi.getControllerRawAxis(RobotMap.Left_Stick_X);
     double leftStickY = Robot.m_oi.getControllerRawAxis(RobotMap.Left_Stick_Y);
     double rightStickY = Robot.m_oi.getControllerRawAxis(RobotMap.Right_Stick_Y);
     boolean ButtonA = Robot.m_oi.getControllerButton(RobotMap.Button_A);
     boolean ButtonB = Robot.m_oi.getControllerButton(RobotMap.Button_B);
+    boolean RT = Robot.m_oi.getControllerButton(RobotMap.RT);
 
+    if (RT && !modeChange){
+      modeChange = true;
+      isArcade = !isArcade;
+    } else if (!RT && modeChange){
+      modeChange = false;
+    }
     if (ButtonA){
       Robot.intake.setIntake(0.25);
     }
@@ -45,8 +57,19 @@ public class Drive extends Command {
       Robot.intake.setIntake(0);
     }
 
-    Robot.driveTrain.driveLeft(leftStickY * scale);
-    Robot.driveTrain.driveLeft(rightStickY * scale);
+    // Tank
+    if (!isArcade){
+      leftInput = leftStickY * Math.abs(leftStickY);
+      rightInput = rightStickY * Math.abs(rightStickY);
+      Robot.driveTrain.driveLeft(leftInput);
+      Robot.driveTrain.driveRight(rightInput);
+    }
+    else if (isArcade){
+      leftInput = leftStickX * Math.abs(leftStickX);
+      rightInput = rightStickY * Math.abs(rightStickY);
+      Robot.driveTrain.arcade(leftInput,rightInput);
+    }
+
   }
 
   // Make this return true when this Command no longer needs to run execute()

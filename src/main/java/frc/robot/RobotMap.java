@@ -18,18 +18,18 @@ public class RobotMap {
   public static final int intake_id = 35;
   public static final int joystick_id = 0;
 
+  public static final int Left_Stick_X = 0;
   public static final int Left_Stick_Y = 1;
-  public static final int Right_Stick_Y = 2;
+  public static final int Right_Stick_Y = 5;
   public static final int Button_A = 1;
   public static final int Button_B = 2;
   public static final int RT = 6;
 
 
-  // These values are currently unmapped
-  public static final int motorLF = 0;
-  public static final int motorLMaster = 0;
-  public static final int motorLB = 0;
-  public static final int motorRF = 0;
-  public static final int motorRMaster = 0;
-  public static final int motorRB = 0;
+  public static final int motorLF = 32;
+  public static final int motorLMaster = 31;
+  public static final int motorLB = 39;
+  public static final int motorRF = 34;
+  public static final int motorRMaster = 36;
+  public static final int motorRB = 44;
 }
