@@ -39,14 +39,7 @@ public class Drive extends Command {
     double rightStickY = Robot.m_oi.getControllerRawAxis(RobotMap.Right_Stick_Y);
     boolean ButtonA = Robot.m_oi.getControllerButton(RobotMap.Button_A);
     boolean ButtonB = Robot.m_oi.getControllerButton(RobotMap.Button_B);
-    boolean RT = Robot.m_oi.getControllerButton(RobotMap.RT);
-
-    if (RT && !modeChange){
-      modeChange = true;
-      isArcade = !isArcade;
-    } else if (!RT && modeChange){
-      modeChange = false;
-    }
+    
     if (ButtonA){
       Robot.intake.setIntake(0.25);
     }
@@ -58,17 +51,17 @@ public class Drive extends Command {
     }
 
     // Tank
-    if (!isArcade){
+    //if (!isArcade){
       leftInput = leftStickY * Math.abs(leftStickY);
       rightInput = rightStickY * Math.abs(rightStickY);
       Robot.driveTrain.driveLeft(leftInput);
       Robot.driveTrain.driveRight(rightInput);
-    }
-    else if (isArcade){
-      leftInput = leftStickX * Math.abs(leftStickX);
-      rightInput = rightStickY * Math.abs(rightStickY);
-      Robot.driveTrain.arcade(leftInput,rightInput);
-    }
+    //}
+    // else if (isArcade){
+    //   leftInput = leftStickX * Math.abs(leftStickX);
+    //   rightInput = rightStickY * Math.abs(rightStickY);
+    //   Robot.driveTrain.arcade(leftInput,rightInput);
+    // }
 
   }
 

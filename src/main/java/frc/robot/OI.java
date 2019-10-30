@@ -8,13 +8,16 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.Arcade;
+import frc.robot.commands.Drive;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-
   Joystick Controller = new Joystick(RobotMap.joystick_id);
 
   public double getControllerRawAxis(int axis){
@@ -23,6 +26,21 @@ public class OI {
   public boolean getControllerButton(int button){
     return Controller.getRawButton(button);
   }
+  Button RT = new JoystickButton(Controller,RobotMap.RT);
+
+  public OI(){
+      RT.toggleWhenPressed(new Arcade());
+      RT.toggleWhenPressed(new Drive());
+    
+    
+  }
+  
+    // if (RT && !modeChange){
+    //   modeChange = true;
+    //   isArcade = !isArcade;
+    // } else if (!RT && modeChange){
+    //   modeChange = false;
+    // }
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
   //// joystick.

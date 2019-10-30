@@ -60,9 +60,4 @@ public class DriveTrain extends Subsystem {
     driveLeft(YInput - XInput);
     driveRight(YInput + XInput);
   }
-
-  public void turn(double power){
-    driveLeft(-power);
-    driveRight(power);
-  }
 }

@@ -8,11 +8,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 public class Arcade extends Command {
+
+  double leftInput = 0.0;
+  double rightInput = 0.0;
+  boolean isArcade = false;
+  boolean modeChange = false;
   public Arcade() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(Robot.intake);
+    requires(Robot.driveTrain);
   }
 
   // Called just before this Command runs the first time
@@ -23,6 +32,32 @@ public class Arcade extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    double leftStickX = Robot.m_oi.getControllerRawAxis(RobotMap.Left_Stick_X);
+    double leftStickY = Robot.m_oi.getControllerRawAxis(RobotMap.Left_Stick_Y);
+    double rightStickY = Robot.m_oi.getControllerRawAxis(RobotMap.Right_Stick_Y);
+    boolean ButtonA = Robot.m_oi.getControllerButton(RobotMap.Button_A);
+    boolean ButtonB = Robot.m_oi.getControllerButton(RobotMap.Button_B);
+    boolean RT = Robot.m_oi.getControllerButton(RobotMap.RT);
+
+    if (RT && !modeChange){
+      modeChange = true;
+      isArcade = !isArcade;
+    } else if (!RT && modeChange){
+      modeChange = false;
+    }
+    if (ButtonA){
+      Robot.intake.setIntake(0.25);
+    }
+    else if (ButtonB){
+      Robot.intake.setIntake(-0.25);
+    }
+    else {
+      Robot.intake.setIntake(0);
+    }
+
+    leftInput = leftStickX * Math.abs(leftStickX);
+    rightInput = rightStickY * Math.abs(rightStickY);
+    Robot.driveTrain.arcade(leftInput,rightInput);
   }
 
   // Make this return true when this Command no longer needs to run execute()
