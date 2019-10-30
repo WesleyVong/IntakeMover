@@ -26,10 +26,10 @@ public class RobotMap {
   public static final int RT = 6;
 
 
-  public static final int motorLF = 32;
-  public static final int motorLMaster = 31;
-  public static final int motorLB = 39;
-  public static final int motorRF = 34;
-  public static final int motorRMaster = 36;
-  public static final int motorRB = 44;
+  public static final int motorLF = 34;
+  public static final int motorLMaster = 36;
+  public static final int motorLB = 44;
+  public static final int motorRF = 32;
+  public static final int motorRMaster = 31;
+  public static final int motorRB = 39;
 }
